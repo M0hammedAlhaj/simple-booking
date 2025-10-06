@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.bookingsystem.provider.application.create.booking.CreateBookingUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-10-05T23:03:26.669Z" hostname="sa" time="0.365">
+  <properties/>
+  <testcase name="provider_should_creation_booking_successfully_with_all_field()" classname="org.example.bookingsystem.provider.application.create.booking.CreateBookingUseCaseTest" time="0.356"/>
+  <testcase name="provider_should_creation_booking_successfully()" classname="org.example.bookingsystem.provider.application.create.booking.CreateBookingUseCaseTest" time="0.004"/>
+  <testcase name="user_should_not_creation_booking_successfully()" classname="org.example.bookingsystem.provider.application.create.booking.CreateBookingUseCaseTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

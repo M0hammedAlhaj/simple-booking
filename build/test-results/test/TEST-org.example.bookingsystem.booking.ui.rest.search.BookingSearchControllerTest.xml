@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.bookingsystem.booking.ui.rest.search.BookingSearchControllerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-10-05T23:03:26.377Z" hostname="sa" time="0.261">
+  <properties/>
+  <testcase name="shouldFilterBookingsByTypeAndAppointment()" classname="org.example.bookingsystem.booking.ui.rest.search.BookingSearchControllerTest" time="0.21"/>
+  <testcase name="shouldFilterBookingsByAppointment()" classname="org.example.bookingsystem.booking.ui.rest.search.BookingSearchControllerTest" time="0.026"/>
+  <testcase name="shouldFilterBookingsByApp()" classname="org.example.bookingsystem.booking.ui.rest.search.BookingSearchControllerTest" time="0.021"/>
+  <system-out><![CDATA[2025-10-06T02:03:25.963+03:00  INFO 76009 --- [booking-system-test] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.example.bookingsystem.booking.ui.rest.search.BookingSearchControllerTest]: BookingSearchControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-10-06T02:03:25.971+03:00  INFO 76009 --- [booking-system-test] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.example.bookingsystem.BookingSystemApplication for test class org.example.bookingsystem.booking.ui.rest.search.BookingSearchControllerTest
+2025-10-06T02:03:26.389+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='BookingSearchControllerTest#shouldFilterBookingsByTypeAndAppointment'
+2025-10-06T02:03:26.597+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='BookingSearchControllerTest#shouldFilterBookingsByAppointment'
+2025-10-06T02:03:26.625+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='BookingSearchControllerTest#shouldFilterBookingsByApp'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

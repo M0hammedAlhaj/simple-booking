@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.bookingsystem.user.domain.factory.UserFactoryProviderTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-10-05T23:03:29.700Z" hostname="sa" time="0.007">
+  <properties/>
+  <testcase name="should_return_customer_factory()" classname="org.example.bookingsystem.user.domain.factory.UserFactoryProviderTest" time="0.001"/>
+  <testcase name="should_return_provider_factory()" classname="org.example.bookingsystem.user.domain.factory.UserFactoryProviderTest" time="0.001"/>
+  <testcase name="should_create_provider()" classname="org.example.bookingsystem.user.domain.factory.UserFactoryProviderTest" time="0.0"/>
+  <testcase name="should_throw_exception()" classname="org.example.bookingsystem.user.domain.factory.UserFactoryProviderTest" time="0.001"/>
+  <testcase name="should_create_customer()" classname="org.example.bookingsystem.user.domain.factory.UserFactoryProviderTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
