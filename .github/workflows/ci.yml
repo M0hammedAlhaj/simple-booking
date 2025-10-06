@@ -92,11 +92,11 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./gradlew sonar \
-            -Dsonar.organization=my-project4615639 \
-            -Dsonar.projectKey=my-project4615639 \
+            -Dsonar.organization=m0hammedalhaj \
+            -Dsonar.projectKey=M0hammedAlhaj_simple-booking \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=$SONAR_TOKEN \
-            -Dsonar.branch.name=main
+            -Dsonar.branch.name=master
 
   # -------------------- DOCKER BUILD --------------------
   docker_build:
