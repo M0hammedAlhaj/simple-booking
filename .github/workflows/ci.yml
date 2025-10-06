@@ -23,20 +23,19 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            booking-system/.gradle
-            booking-system/build
+            .gradle
+            build
           key: gradle-${{ github.sha }}
 
       - name: Build project (without tests)
         run: |
-          cd booking-system
           ./gradlew build -x test
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-artifact
-          path: booking-system/build/libs/*.jar
+          path: build/libs/*.jar
 
   # -------------------- UNIT TESTS --------------------
   unit_tests:
@@ -49,7 +48,6 @@ jobs:
 
       - name: Run tests
         run: |
-          cd booking-system
           ./gradlew test
 
       - name: Upload test and coverage reports
@@ -57,9 +55,9 @@ jobs:
         with:
           name: test-reports
           path: |
-            booking-system/build/test-results/test/*.xml
-            booking-system/build/reports/jacoco/test/jacocoTestReport.xml
-            booking-system/jacoco/test.exec
+            build/test-results/test/*.xml
+            build/reports/jacoco/test/jacocoTestReport.xml
+            build/jacoco/test.exec
 
   # -------------------- VERIFY COVERAGE --------------------
   verify_coverage:
@@ -72,14 +70,13 @@ jobs:
 
       - name: Verify code coverage
         run: |
-          cd booking-system
           ./gradlew jacocoTestCoverageVerification -x test
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: booking-system/build/reports/jacoco/test/
+          path: build/reports/jacoco/test/
 
   # -------------------- SONAR QUALITY --------------------
   quality_code:
@@ -94,10 +91,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          cd booking-system
           ./gradlew sonar \
             -Dsonar.organization=my-project4615639 \
-            -Dsonar.projectKey=my-project4615639_booking-system \
+            -Dsonar.projectKey=my-project4615639 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.branch.name=main
@@ -134,7 +130,6 @@ jobs:
 
       - name: Build Docker image
         run: |
-          cd booking-system
           docker build -t $IMAGE_NAME:${{ steps.version.outputs.tag }} .
 
       - name: Save Docker image artifact
