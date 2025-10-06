@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.bookingsystem.user.ui.rest.login.UserLoginControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-10-05T23:03:29.740Z" hostname="sa" time="0.88">
+  <properties/>
+  <testcase name="user_should_not_login_with_empty_password()" classname="org.example.bookingsystem.user.ui.rest.login.UserLoginControllerTest" time="0.208"/>
+  <testcase name="user_should_not_login_with_invalid_email_format()" classname="org.example.bookingsystem.user.ui.rest.login.UserLoginControllerTest" time="0.111"/>
+  <testcase name="user_should_not_login_with_invalid_email()" classname="org.example.bookingsystem.user.ui.rest.login.UserLoginControllerTest" time="0.132"/>
+  <testcase name="user_should_not_login_with_invalid_login()" classname="org.example.bookingsystem.user.ui.rest.login.UserLoginControllerTest" time="0.206"/>
+  <testcase name="user_should_login_sucessfully()" classname="org.example.bookingsystem.user.ui.rest.login.UserLoginControllerTest" time="0.213"/>
+  <system-out><![CDATA[2025-10-06T02:03:29.714+03:00  INFO 76009 --- [booking-system-test] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.example.bookingsystem.user.ui.rest.login.UserLoginControllerTest]: UserLoginControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-10-06T02:03:29.734+03:00  INFO 76009 --- [booking-system-test] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.example.bookingsystem.BookingSystemApplication for test class org.example.bookingsystem.user.ui.rest.login.UserLoginControllerTest
+2025-10-06T02:03:29.859+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserLoginControllerTest#user_should_not_login_with_empty_password'
+2025-10-06T02:03:30.047+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserLoginControllerTest#user_should_not_login_with_invalid_email_format'
+2025-10-06T02:03:30.157+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserLoginControllerTest#user_should_not_login_with_invalid_email'
+2025-10-06T02:03:30.308+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserLoginControllerTest#user_should_not_login_with_invalid_login'
+2025-10-06T02:03:30.517+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserLoginControllerTest#user_should_login_sucessfully'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

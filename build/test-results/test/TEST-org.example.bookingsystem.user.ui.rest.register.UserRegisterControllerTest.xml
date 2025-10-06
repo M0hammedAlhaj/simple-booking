@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-10-05T23:03:30.639Z" hostname="sa" time="0.859">
+  <properties/>
+  <testcase name="customer_should_registeration_sucessfully()" classname="org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest" time="0.199"/>
+  <testcase name="registration_should_fail_when_password_invalid()" classname="org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest" time="0.098"/>
+  <testcase name="provider_should_registeration_sucessfully()" classname="org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest" time="0.195"/>
+  <testcase name="user_registration_with_existing_email_should_succeed_without_saving_new_user()" classname="org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest" time="0.176"/>
+  <testcase name="registration_should_fail_when_user_type_null()" classname="org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest" time="0.089"/>
+  <testcase name="registration_should_fail_when_all_fields_invalid()" classname="org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest" time="0.092"/>
+  <system-out><![CDATA[2025-10-06T02:03:30.624+03:00  INFO 76009 --- [booking-system-test] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest]: UserRegisterControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-10-06T02:03:30.635+03:00  INFO 76009 --- [booking-system-test] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.example.bookingsystem.BookingSystemApplication for test class org.example.bookingsystem.user.ui.rest.register.UserRegisterControllerTest
+2025-10-06T02:03:30.725+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserRegisterControllerTest#customer_should_registeration_sucessfully'
+2025-10-06T02:03:30.923+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserRegisterControllerTest#registration_should_fail_when_password_invalid'
+2025-10-06T02:03:31.041+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserRegisterControllerTest#provider_should_registeration_sucessfully'
+2025-10-06T02:03:31.231+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserRegisterControllerTest#user_registration_with_existing_email_should_succeed_without_saving_new_user'
+2025-10-06T02:03:31.397+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserRegisterControllerTest#registration_should_fail_when_user_type_null'
+2025-10-06T02:03:31.491+03:00  INFO 76009 --- [booking-system-test] [    Test worker] i.z.t.d.l.EmbeddedDatabaseReporter       : JDBC URL to connect to 'dataSource': url='jdbc:postgresql://localhost:32775/kxrjlsoomvsq?user=postgres&password=docker', scope='UserRegisterControllerTest#registration_should_fail_when_all_fields_invalid'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

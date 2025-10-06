@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.bookingsystem.user.application.login.LoginUserUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-10-05T23:03:29.605Z" hostname="sa" time="0.04">
+  <properties/>
+  <testcase name="user_should_not_login_sucessfully_invalid_credientials_when_password_invalid()" classname="org.example.bookingsystem.user.application.login.LoginUserUseCaseTest" time="0.032"/>
+  <testcase name="user_should_not_login_sucessfully_invalid_credientials_when_user_not_found()" classname="org.example.bookingsystem.user.application.login.LoginUserUseCaseTest" time="0.002"/>
+  <testcase name="user_should_login_sucessfully()" classname="org.example.bookingsystem.user.application.login.LoginUserUseCaseTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

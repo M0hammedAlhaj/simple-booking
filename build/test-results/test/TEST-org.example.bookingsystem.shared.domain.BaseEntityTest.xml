@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.bookingsystem.shared.domain.BaseEntityTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-10-05T23:03:27.994Z" hostname="sa" time="0.007">
+  <properties/>
+  <testcase name="shouldNotBeEqual_whenIdsAreDifferent()" classname="org.example.bookingsystem.shared.domain.BaseEntityTest" time="0.003"/>
+  <testcase name="shouldNotBeEqual_whenComparedWithDifferentObjectType()" classname="org.example.bookingsystem.shared.domain.BaseEntityTest" time="0.001"/>
+  <testcase name="shouldBeEqual_whenIdsAreSame()" classname="org.example.bookingsystem.shared.domain.BaseEntityTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
