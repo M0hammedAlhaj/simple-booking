@@ -76,7 +76,7 @@ jobs:
   quality_code:
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
-    needs: [unit_tests, verify_coverage]
+    needs: [unit_tests, verify_coverage,build_project]
     container:
       image: eclipse-temurin:21-alpine
     steps:
