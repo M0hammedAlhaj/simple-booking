@@ -72,22 +72,13 @@ jobs:
         run: |
           ./gradlew jacocoTestCoverageVerification -x test
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: build/reports/jacoco/test/
-
   # -------------------- SONAR QUALITY --------------------
-
   quality_code:
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
     needs: [unit_tests, verify_coverage]
     container:
       image: eclipse-temurin:21-alpine
-      options: >-
-        --mount type=bind,source=${{ github.workspace }},target=/__w/simple-booking/simple-booking
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -95,9 +86,8 @@ jobs:
           fetch-depth: 0
 
       - name: Install Git
-        run: |
-          apk add --no-cache git bash
-      
+        run: apk add --no-cache git bash
+
       - name: Debug Git
         run: |
           git status
@@ -106,6 +96,7 @@ jobs:
       - name: Run SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        working-directory: ${{ github.workspace }}
         run: |
           ./gradlew sonar \
             -Dsonar.organization=m0hammedalhaj \
@@ -114,8 +105,6 @@ jobs:
             -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.branch.name=master \
             -Dsonar.scm.provider=git
-
-
 
   # -------------------- DOCKER BUILD --------------------
   docker_build:
