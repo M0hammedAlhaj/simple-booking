@@ -1,0 +1,56 @@
+# Gradle
+/.gradle/
+/build/
+/out/
+/tmp/
+/libs/
+
+# IntelliJ / JetBrains
+/.idea/
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Archives
+*.zip
+*.tar.gz
+*.tgz
+
+# Logs and temp
+*.log
+logs/
+
+# Environment
+.env
+.env.*
+
+# Maven
+/target/
+
+# VS Code
+/.vscode/
+
+# Other
+# Ignore build output from CI or local build directories
+**/build/
+
+# Node modules (if any subprojects)
+node_modules/
+
+# Local IDE/editor files
+*.swp
+*.swo

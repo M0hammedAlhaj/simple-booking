@@ -1,0 +1,197 @@
+name: CI/CD Pipeline (Container)
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+
+env:
+  IMAGE_NAME: booking-app
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  # -------------------- BUILD --------------------
+  build_project:
+    runs-on: ubuntu-latest
+    container:
+      image: eclipse-temurin:21-alpine
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            .gradle
+            build
+          key: gradle-${{ github.sha }}
+
+      - name: Build project (without tests)
+        run: |
+          ./gradlew build -x test
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: build
+
+  # -------------------- UNIT TESTS --------------------
+  unit_tests:
+    runs-on: ubuntu-latest
+    needs: build_project
+    container:
+      image: eclipse-temurin:21-alpine
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run tests
+        run: |
+          ./gradlew test
+
+      - name: Upload test and coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            build/test-results/test/*.xml
+            build/reports/jacoco/test/jacocoTestReport.xml
+            build/jacoco/test.exec
+
+  # -------------------- VERIFY COVERAGE --------------------
+  verify_coverage:
+    runs-on: ubuntu-latest
+    needs: unit_tests
+    container:
+      image: eclipse-temurin:21-alpine
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify code coverage
+        run: |
+          ./gradlew jacocoTestCoverageVerification -x test
+
+  # -------------------- SONAR QUALITY --------------------
+  quality_code:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    needs: [unit_tests, verify_coverage,build_project]
+    container:
+      image: eclipse-temurin:21-alpine
+    steps:
+      - name: Install Git
+        run: apk add --no-cache git bash
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Mark repository as safe for Git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Debug Git
+        working-directory: ${{ github.workspace }}
+        run: |
+          git status
+          git log -1
+
+      - name: Download build artifact from build_project
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          path: build
+
+      - name: Download test reports from unit_tests
+        uses: actions/download-artifact@v4
+        with:
+          name: test-reports
+          path: .
+
+      - name: Run SonarCloud analysis
+        working-directory: ${{ github.workspace }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./gradlew sonar \
+            -Dsonar.organization=m0hammedalhaj \
+            -Dsonar.projectKey=M0hammedAlhaj_simple-booking \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.token=$SONAR_TOKEN \
+            -Dsonar.branch.name=master \
+            -Dsonar.scm.provider=git
+
+  # -------------------- DOCKER BUILD --------------------
+  docker_build:
+    runs-on: ubuntu-latest
+    needs: quality_code
+    container:
+      image: docker:24.0.2
+      options: --privileged  
+    services:
+      docker:
+        image: docker:24.0.2-dind
+        options: --privileged
+    steps:
+      - name: Install git
+        run: apk add --no-cache git
+
+
+      - uses: actions/checkout@v4
+
+      - name: Mark repository as safe for Git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Determine image tag
+        id: version
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          VERSION_WITHOUT_V="${LAST_TAG#v}"
+          MAJOR=$(echo "$VERSION_WITHOUT_V" | cut -d'.' -f1)
+          MINOR=$(echo "$VERSION_WITHOUT_V" | cut -d'.' -f2)
+          PATCH=$(echo "$VERSION_WITHOUT_V" | cut -d'.' -f3)
+          PATCH=$((PATCH + 1))
+          IMAGE_TAG="v$MAJOR.$MINOR.$PATCH"
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          echo "tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Build Docker image
+        run: |
+          docker build -t $IMAGE_NAME:${{ steps.version.outputs.tag }} .
+
+      - name: Save Docker image artifact
+        run: docker save $IMAGE_NAME:${{ steps.version.outputs.tag }} -o ${IMAGE_NAME}_${{ steps.version.outputs.tag }}.tar
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ env.IMAGE_NAME }}_${{ steps.version.outputs.tag }}.tar
+
+  # -------------------- DOCKER PUSH --------------------
+  docker_push:
+    runs-on: ubuntu-latest
+    needs: docker_build
+    container:
+      image: docker:24.0.2
+      options: --privileged
+    services:
+      docker:
+        image: docker:24.0.2-dind
+        options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+
+      - name: Push Docker image
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          IMAGE_TAG=$(ls ${IMAGE_NAME}_v*.tar | sed "s/${IMAGE_NAME}_//;s/.tar//")
+          docker load -i ${IMAGE_NAME}_${IMAGE_TAG}.tar
+          echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+          docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKERHUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG
+          docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG
