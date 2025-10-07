@@ -96,9 +96,9 @@ jobs:
         run: |
           ./gradlew sonar \
             -Dsonar.organization=m0hammedalhaj \
-            -Dsonar.projectKey=M0hammedalhaj_simple-booking \
+            -Dsonar.projectKey=M0hammedAlhaj_simple-booking \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.branch.name=master \
             -Dsonar.scm.provider=git
 
