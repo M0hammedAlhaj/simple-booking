@@ -95,8 +95,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./gradlew sonar \
-            -Dsonar.organization=<YOUR_ORG_KEY> \
-            -Dsonar.projectKey=<YOUR_PROJECT_KEY> \
+            -Dsonar.organization=m0hammedalhaj \
+            -Dsonar.projectKey=M0hammedalhaj_simple-booking \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.branch.name=master \
