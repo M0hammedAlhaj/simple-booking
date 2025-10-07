@@ -88,6 +88,9 @@ jobs:
         with:
           fetch-depth: 0 
 
+      - name: Mark repository as safe for Git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Debug Git
         working-directory: ${{ github.workspace }}
         run: |
@@ -122,7 +125,11 @@ jobs:
       - name: Install git
         run: apk add --no-cache git
 
+
       - uses: actions/checkout@v4
+
+      - name: Mark repository as safe for Git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Determine image tag
         id: version
