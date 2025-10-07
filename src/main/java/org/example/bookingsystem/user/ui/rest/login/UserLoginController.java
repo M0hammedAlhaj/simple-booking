@@ -17,7 +17,7 @@ public class UserLoginController {
     private final LoginUserUseCase useCase;
     private final JwtService jwtService;
 
-    @PostMapping("/api/v1/users/login")
+    @PostMapping("/api/v1/auth/login")
     public ResponseEntity<String> invoke(@Valid @RequestBody UserLoginRequest request) {
 
         final var command = new LoginUserCommand(request.email(), request.password());

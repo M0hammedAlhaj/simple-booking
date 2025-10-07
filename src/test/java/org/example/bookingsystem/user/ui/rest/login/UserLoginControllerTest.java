@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserLoginControllerTest extends BaseIntegrationTest {
 
-    private static final String URL_LOGIN_PATH = "/api/v1/users/login";
+    private static final String URL_LOGIN_PATH = "/api/v1/auth/login";
 
     @Autowired
     MockMvc mockMvc;
