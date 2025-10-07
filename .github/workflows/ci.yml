@@ -94,6 +94,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Git
+        run: |
+          apk add --no-cache git bash
+      
       - name: Debug Git
         run: |
           git status
