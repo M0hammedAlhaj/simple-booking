@@ -44,11 +44,18 @@ jobs:
     container:
       image: eclipse-temurin:21-alpine
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download compile artifact from build_project
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          path: build
 
       - name: Run tests
         run: |
-          ./gradlew test
+          ./gradlew test -x build 
 
       - name: Upload test and coverage reports
         uses: actions/upload-artifact@v4
@@ -66,8 +73,15 @@ jobs:
     container:
       image: eclipse-temurin:21-alpine
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      - name: Download test reports
+        uses: actions/download-artifact@v4
+        with:
+          name: test-reports
+          path: .
+          
       - name: Verify code coverage
         run: |
           ./gradlew jacocoTestCoverageVerification -x test
