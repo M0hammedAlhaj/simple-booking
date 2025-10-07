@@ -80,13 +80,13 @@ jobs:
     container:
       image: eclipse-temurin:21-alpine
     steps:
+      - name: Install Git
+        run: apk add --no-cache git bash
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 
-
-      - name: Install Git
-        run: apk add --no-cache git bash
 
       - name: Debug Git
         working-directory: ${{ github.workspace }}
@@ -119,10 +119,10 @@ jobs:
         image: docker:24.0.2-dind
         options: --privileged
     steps:
-      - uses: actions/checkout@v4
-
       - name: Install git
         run: apk add --no-cache git
+
+      - uses: actions/checkout@v4
 
       - name: Determine image tag
         id: version
