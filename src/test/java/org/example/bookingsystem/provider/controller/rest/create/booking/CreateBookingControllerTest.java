@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CreateBookingControllerTest extends BaseIntegrationTest {
 
-    private static final String URL_PATH = "/api/v1/providers/";
+    private static final String URL_PATH = "/api/v1/providers/bookings";
 
     @Autowired
     MockMvc mockMvc;
@@ -66,7 +66,7 @@ class CreateBookingControllerTest extends BaseIntegrationTest {
                 "Initial consultation"
         );
 
-        mockMvc.perform(post(URL_PATH + "bookings/")
+        mockMvc.perform(post(URL_PATH)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + tokenProvider)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -86,7 +86,7 @@ class CreateBookingControllerTest extends BaseIntegrationTest {
                 "Initial consultation"
         );
 
-        mockMvc.perform(post(URL_PATH + "bookings/")
+        mockMvc.perform(post(URL_PATH)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + tokenCustomer)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))

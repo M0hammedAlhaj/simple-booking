@@ -17,7 +17,7 @@ public class CreateBookingController {
 
     private final CreateBookingUseCase useCase;
 
-    @PostMapping("/api/v1/providers/bookings/")
+    @PostMapping("/api/v1/providers/bookings")
     public ResponseEntity<CreateBookingResponse> createBooking(@Valid @RequestBody CreateBookingRequest request,
                                            @AuthenticationPrincipal UserAuthentication userAuthentication) {
         final var command = new CreateBookingCommand(request.time(),

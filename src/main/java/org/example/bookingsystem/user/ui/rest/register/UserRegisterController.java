@@ -15,12 +15,12 @@ public class UserRegisterController {
 
     private final RegisterUserUseCase registerUserUseCase;
 
-    @PostMapping("/api/v1/users/")
+    @PostMapping("/api/v1/auth/register")
     public ResponseEntity<UserRegisterResponse> invoke(@Valid @RequestBody UserRegisterRequest request) {
 
         final var command = new RegisterUserCommand(request.email(), request.password(), request.userType());
         final var user = registerUserUseCase.registerUser(command);
-        final var response = new UserRegisterResponse(user.getId(), user.getEmail(), user.getEmail(), user.getType());
+        final var response = new UserRegisterResponse(user.getId(), user.getEmail(), user.getType());
 
         return ResponseEntity.ok(response);
     }
