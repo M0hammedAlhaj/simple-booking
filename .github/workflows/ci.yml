@@ -79,25 +79,29 @@ jobs:
           path: build/reports/jacoco/test/
 
   # -------------------- SONAR QUALITY --------------------
+
   quality_code:
     runs-on: ubuntu-latest
     needs: [unit_tests, verify_coverage]
     container:
       image: eclipse-temurin:21-alpine
     steps:
-      - uses: actions/checkout@v4
-
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Run SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-              ./gradlew sonar \
-              -Dsonar.organization=m0hammedalhaj \
-              -Dsonar.projectKey=M0hammedAlhaj_simple-booking \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
-              -Dsonar.branch.name=master \
-              -Dsonar.scm.provider=git
+          ./gradlew sonar \
+            -Dsonar.organization=<YOUR_ORG_KEY> \
+            -Dsonar.projectKey=<YOUR_PROJECT_KEY> \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.branch.name=master \
+            -Dsonar.scm.provider=git
+
 
   # -------------------- DOCKER BUILD --------------------
   docker_build:
