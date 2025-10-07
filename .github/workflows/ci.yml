@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-artifact
-          path: build/libs/*.jar
+          path: build
 
   # -------------------- UNIT TESTS --------------------
   unit_tests:
@@ -96,6 +96,18 @@ jobs:
         run: |
           git status
           git log -1
+
+      - name: Download build artifact from build_project
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          path: build
+
+      - name: Download test reports from unit_tests
+        uses: actions/download-artifact@v4
+        with:
+          name: test-reports
+          path: .
 
       - name: Run SonarCloud analysis
         working-directory: ${{ github.workspace }}
