@@ -51,6 +51,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
+          path: build
 
       - name: Run tests
         run: |
@@ -79,7 +80,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-reports
-
+          path: .
+          
       - name: Verify code coverage
         run: |
           ./gradlew jacocoTestCoverageVerification -x test
