@@ -23,13 +23,17 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
             .gradle
             build
-          key: gradle-${{ github.sha }}
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/wrapper/**', 'settings.gradle', 'gradle.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
 
       - name: Build project (without tests)
         run: |
-          ./gradlew build -x test
+          ./gradlew build -x test --build-cache
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -47,6 +51,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Restore Gradle cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            .gradle
+            build
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/wrapper/**', 'settings.gradle', 'gradle.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
       - name: Download compile artifact from build_project
         uses: actions/download-artifact@v4
         with:
@@ -55,7 +71,7 @@ jobs:
 
       - name: Run tests
         run: |
-          ./gradlew test -x build 
+         ./gradlew test --build-cache 
 
       - name: Upload test and coverage reports
         uses: actions/upload-artifact@v4
@@ -76,11 +92,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Restore Gradle cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            .gradle
+            build
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/wrapper/**', 'settings.gradle', 'gradle.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Download compile artifact from build_project
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          path: build
+
       - name: Download test reports
         uses: actions/download-artifact@v4
         with:
           name: test-reports
-          path: .
+          path: build
           
       - name: Verify code coverage
         run: |
@@ -121,7 +155,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-reports
-          path: .
+          path: build
 
       - name: Run SonarCloud analysis
         working-directory: ${{ github.workspace }}
@@ -151,8 +185,8 @@ jobs:
       - name: Install git
         run: apk add --no-cache git
 
-
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Mark repository as safe for Git
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -194,8 +228,11 @@ jobs:
         image: docker:24.0.2-dind
         options: --privileged
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: download docker image
+        uses: actions/download-artifact@v4
         with:
           name: docker-image
 
