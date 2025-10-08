@@ -255,7 +255,7 @@ jobs:
     needs: docker_push
     steps:
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@334f925
         with:
           host: ${{ secrets.EC2_HOST }}   
           username: ${{ secrets.EC2_USER }}  
