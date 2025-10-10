@@ -54,3 +54,5 @@ node_modules/
 # Local IDE/editor files
 *.swp
 *.swo
+
+.idea
