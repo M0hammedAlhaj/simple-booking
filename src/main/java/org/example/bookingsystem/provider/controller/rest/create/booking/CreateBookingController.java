@@ -1,5 +1,10 @@
 package org.example.bookingsystem.provider.controller.rest.create.booking;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.bookingsystem.provider.application.create.booking.CreateBookingCommand;
@@ -11,15 +16,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Providers")
 @RestController
 @RequiredArgsConstructor
 public class CreateBookingController {
 
     private final CreateBookingUseCase useCase;
 
+    @Operation(
+            summary = "Create a new booking",
+            description = "Creates a booking for the authenticated provider.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Booking created successfully",
+                            content = @Content(schema = @Schema(implementation = CreateBookingResponse.class))),
+            }
+    )
     @PostMapping("/api/v1/providers/bookings")
     public ResponseEntity<CreateBookingResponse> createBooking(@Valid @RequestBody CreateBookingRequest request,
-                                           @AuthenticationPrincipal UserAuthentication userAuthentication) {
+                                                               @AuthenticationPrincipal UserAuthentication userAuthentication) {
         final var command = new CreateBookingCommand(request.time(),
                 request.bookingType(),
                 userAuthentication.user(),
